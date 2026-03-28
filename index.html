@@ -169,22 +169,34 @@
 </div>
 
 <script>
-    function convertLink() {
-        const input = document.getElementById('shopeeInput').value;
+ function convertLink() {
+        const input = document.getElementById('shopeeInput').value.trim();
         const resultBox = document.getElementById('resultBox');
         const outputLink = document.getElementById('outputLink');
 
-        if (!input.trim()) {
+        if (!input) {
             alert('Bạn ơi, dán link vào đã nè!');
             return;
         }
 
-        // Logic chuyển đổi link: Thay thế toàn bộ bằng link có ID của Dâu
-        // Note: Ở đây Mochi dùng cấu trúc link Dâu yêu cầu và gắn AFF ID mới.
-        const originLink = "https%3A%2F%2Fshopee.vn%2Fopaanlp%2F69421824%2F46957237585";
-        const newAffId = "17384580288"; // ID của Dâu
+        // 1. Kiểm tra xem link có phải định dạng an_redir không
+        // Nếu là link s.shopee.vn bình thường, mình cần cấu trúc lại nó
         
-        const finalLink = `https://s.shopee.vn/an_redir?origin_link=${originLink}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=addlivetag-lanvely---`;
+        const newAffId = "17384580288"; // ID của Dâu
+        const newSubId = "addlivetag-lanvely---"; // Sub ID theo ảnh của Dâu
+        
+        let finalLink = "";
+
+        if (input.includes("an_redir")) {
+            // Nếu Dâu dán link đã chuyển đổi sẵn, Mochi sẽ thay mã AFF
+            finalLink = input.replace(/affiliate_id=\d+/, `affiliate_id=${newAffId}`);
+            finalLink = finalLink.replace(/sub_id=[^&]*/, `sub_id=${newSubId}`);
+        } else {
+            // Nếu là link rút gọn (s.shopee.vn/xxx), ta sẽ đóng gói nó vào origin_link
+            // Chuyển link gốc thành định dạng mã hóa (URL Encode)
+            const encodedOrigin = encodeURIComponent(input);
+            finalLink = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
+        }
 
         outputLink.innerText = finalLink;
         resultBox.style.display = 'block';
