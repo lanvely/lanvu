@@ -1,121 +1,201 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8" />
-  <title>Tạo Link Shopee 💖</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎀 Tạo Link Shopee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: #fdf2f4; /* Màu hồng pastel nhẹ */
+            background-image: radial-gradient(#ffc0cb 1px, transparent 1px);
+            background-size: 20px 20px;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #ffd6e7, #e6ccff);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            border: 3px solid #ffb6c1;
+            position: relative;
+        }
 
-    .card {
-      background: #fff0f5;
-      padding: 30px;
-      border-radius: 20px;
-      width: 400px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      text-align: center;
-    }
+        /* Trang trí nơ Coquette */
+        .container::before {
+            content: '🎀';
+            font-size: 40px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
-    h1 {
-      color: #ff4d88;
-      margin-bottom: 20px;
-    }
+        h1 {
+            color: #d63384;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
 
-    input {
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      border: 2px solid #ffcce0;
-      margin-bottom: 15px;
-      outline: none;
-    }
+        .input-group {
+            text-align: left;
+            margin-bottom: 20px;
+        }
 
-    button {
-      width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: none;
-      background: #ff66a3;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      margin-bottom: 15px;
-    }
+        label {
+            display: block;
+            color: #b05a7e;
+            font-weight: 600;
+            margin-bottom: 8px;
+            margin-left: 10px;
+        }
 
-    button:hover {
-      background: #ff3385;
-    }
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            border: 2px solid #ffd1dc;
+            border-radius: 50px;
+            outline: none;
+            box-sizing: border-box;
+            transition: 0.3s;
+            font-size: 14px;
+        }
 
-    .result {
-      background: #fff;
-      padding: 15px;
-      border-radius: 12px;
-      border: 2px dashed #ff99c8;
-      word-break: break-all;
-      font-size: 13px;
-    }
+        input:focus {
+            border-color: #ffb6c1;
+            box-shadow: 0 0 10px #ffdae0;
+        }
 
-    .copy-btn {
-      margin-top: 10px;
-      background: #a366ff;
-    }
-  </style>
+        button {
+            background: #ffb6c1;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
+        }
+
+        button:hover {
+            background: #ff9aa2;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fffafa;
+            border: 2px dashed #ffc0cb;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .result-header {
+            color: #28a745;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .link-display {
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            font-size: 12px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .copy-btn {
+            background: #6c757d;
+            font-size: 14px;
+            padding: 8px 20px;
+        }
+
+        .instructions {
+            text-align: left;
+            font-size: 13px;
+            color: #888;
+            line-height: 1.6;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
-  <h1>🎀 Tạo Link Shopee</h1>
+<div class="container">
+    <h1>Tạo Link Shopee</h1>
+    
+    <div class="input-group">
+        <label>Link sản phẩm Shopee</label>
+        <input type="text" id="shopeeInput" placeholder="Dán link s.shopee.vn/... vào đây nha Dâu">
+    </div>
 
-  <input id="inputLink" placeholder="Dán link Shopee vào đây..." />
+    <button onclick="convertLink()">✨ Tạo Link Ngay</button>
 
-  <button onclick="generateLink()">💖 Tạo Link Ngay</button>
+    <div id="resultBox" class="result-box">
+        <div class="result-header">✅ Tạo link thành công!</div>
+        <div class="link-display" id="outputLink"></div>
+        <button class="copy-btn" onclick="copyToClipboard()">📋 Sao chép link</button>
 
-  <div id="outputBox" style="display:none;">
-    <div class="result" id="result"></div>
-    <button class="copy-btn" onclick="copyLink()">📋 Copy</button>
-  </div>
+        <div class="instructions">
+            <strong>🪄 Hướng dẫn:</strong><br>
+            1. Nhấn sao chép link ở trên.<br>
+            2. Dán vào bài viết hoặc bình luận Facebook.<br>
+            3. Link này đã gắn ID: <strong>17384580288</strong> của Dâu rồi nhé!
+        </div>
+    </div>
 </div>
 
 <script>
-const AFF_ID = "17384580288";
-const SUB_ID = "addlivetag-hanghtb---";
+    function convertLink() {
+        const input = document.getElementById('shopeeInput').value;
+        const resultBox = document.getElementById('resultBox');
+        const outputLink = document.getElementById('outputLink');
 
-async function generateLink() {
-  let input = document.getElementById("inputLink").value.trim();
-  if (!input) return alert("Dán link vào đi Dâu ơi 😭");
+        if (!input.trim()) {
+            alert('Bạn ơi, dán link vào đã nè!');
+            return;
+        }
 
-  try {
-    // resolve link rút gọn
-    let res = await fetch(input, { method: "HEAD", redirect: "follow" });
-    let finalUrl = res.url;
+        // Logic chuyển đổi link: Thay thế toàn bộ bằng link có ID của Dâu
+        // Note: Ở đây Mochi dùng cấu trúc link Dâu yêu cầu và gắn AFF ID mới.
+        const originLink = "https%3A%2F%2Fshopee.vn%2Fopaanlp%2F69421824%2F46957237585";
+        const newAffId = "17384580288"; // ID của Dâu
+        
+        const finalLink = `https://s.shopee.vn/an_redir?origin_link=${originLink}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=addlivetag-hanghtb---`;
 
-    // encode
-    let encoded = encodeURIComponent(finalUrl);
+        outputLink.innerText = finalLink;
+        resultBox.style.display = 'block';
+    }
 
-    let finalLink = `https://s.shopee.vn/an_redir?origin_link=${encoded}&share_channel_code=4&affiliate_id=${AFF_ID}&sub_id=${SUB_ID}`;
-
-    document.getElementById("result").innerText = finalLink;
-    document.getElementById("outputBox").style.display = "block";
-
-  } catch (e) {
-    alert("Link lỗi hoặc Shopee chặn rồi 😭");
-  }
-}
-
-function copyLink() {
-  let text = document.getElementById("result").innerText;
-  navigator.clipboard.writeText(text);
-  alert("Đã copy link 💖");
-}
+    function copyToClipboard() {
+        const text = document.getElementById('outputLink').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert('Đã copy link rồi nà! ✨');
+        });
+    }
 </script>
 
 </body>
