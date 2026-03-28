@@ -3,190 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐰 Tạo Link Shopee - My Melody Version</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Fredoka:wght@400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <title>🎀 Tạo Link Shopee</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background: #fdf2f4;
-            /* Thêm họa tiết nền My Melody ẩn (hoặc chấm bi hồng) */
+            background: #fdf2f4; /* Màu hồng pastel nhẹ */
             background-image: radial-gradient(#ffc0cb 1px, transparent 1px);
             background-size: 20px 20px;
-            font-family: 'Fredoka', sans-serif; /* Font tròn trịa đáng yêu */
+            font-family: 'Quicksand', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
         }
 
         .container {
             background: white;
-            padding: 40px 30px 30px 30px; /* Thêm padding trên để lộ hình Melody */
-            border-radius: 30px; /* Bo tròn hơn */
-            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.6);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.5);
             width: 100%;
             max-width: 500px;
             text-align: center;
-            border: 4px solid #ffb6c1; /* Viền hồng dày hơn xíu */
+            border: 3px solid #ffb6c1;
             position: relative;
         }
 
-        /* 🐰 Thêm hình My Melody phía trên khung */
+        /* Trang trí nơ Coquette */
         .container::before {
-            content: '';
-            display: block;
-            width: 120px; /* Kích thước hình Melody */
-            height: 120px;
-            /* Dâu thay link hình Melody bất kỳ Dâu thích vào đây nha */
-            background-image: url('https://i.pinimg.com/736x/f6/fe/64/f6fe6497217961159846059d356c9a99.jpg'); 
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
+            content: '🎀';
+            font-size: 40px;
             position: absolute;
-            top: -70px; /* Đẩy hình lên trên khung */
+            top: -25px;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 10;
         }
 
         h1 {
-            color: #d63384; /* Hồng đậm nổi bật */
-            font-family: 'Cherry Bomb One', cursive; /* Font chữ kẹo ngọt */
-            font-size: 2.8rem;
-            margin-bottom: 25px;
-            margin-top: 10px;
-            text-shadow: 2px 2px 0px #fff; /* Thêm bóng trắng cho chữ sắc nét */
+            color: #d63384;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
         }
 
         .input-group {
             text-align: left;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            color: #b05a7e; /* Màu tím hồng đậm cho dễ đọc */
+            color: #b05a7e;
             font-weight: 600;
-            margin-bottom: 10px;
-            margin-left: 15px;
-            font-size: 1.1rem;
+            margin-bottom: 8px;
+            margin-left: 10px;
         }
 
         input {
             width: 100%;
-            padding: 15px 25px;
-            border: 3px solid #ffd1dc;
+            padding: 12px 20px;
+            border: 2px solid #ffd1dc;
             border-radius: 50px;
             outline: none;
             box-sizing: border-box;
             transition: 0.3s;
-            font-size: 15px;
-            color: #555;
-            font-family: 'Quicksand', sans-serif;
+            font-size: 14px;
         }
 
         input:focus {
             border-color: #ffb6c1;
-            box-shadow: 0 0 15px #ffdae0;
+            box-shadow: 0 0 10px #ffdae0;
         }
 
-        /* Đổi màu nút "Tạo Link Ngay" sang hồng đậm hơn để dễ nhìn chữ trắng */
-        .main-btn {
-            background: #db7093; /* Màu hồng đậm (PaleVioletRed) - Chữ trắng sẽ rất nổi */
-            color: white;
-            border: none;
-            padding: 15px 35px;
-            border-radius: 50px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            font-size: 1.1rem;
-            transition: 0.3s;
-            box-shadow: 0 5px 20px rgba(219, 112, 147, 0.5); /* Bóng đổ theo màu nút */
-            font-family: 'Fredoka', sans-serif;
-        }
-
-        .main-btn:hover {
-            background: #c71585; /* Màu hồng tím đậm hơn khi hover */
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(219, 112, 147, 0.6);
-        }
-
-        .result-box {
-            margin-top: 30px;
-            padding: 25px;
-            background: #fffafa;
-            border: 3px dashed #db7093; /* Viền đứt màu hồng đậm */
-            border-radius: 20px;
-            display: none;
-        }
-
-        .result-header {
-            font-weight: 600;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-size: 1.1rem;
-        }
-
-        .link-display {
-            background: #fff;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #eee;
-            font-size: 13px;
-            word-break: break-all;
-            margin-bottom: 20px;
-            color: #444;
-            min-height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Quicksand', sans-serif;
-        }
-
-        /* Đổi màu nút Copy khi CHƯA sẵn sàng (màu xám đậm hơn tí cho rõ) */
-        .copy-btn {
-            background: #a9a9a9; /* Màu xám đậm (DarkGray) */
+        button {
+            background: #ffb6c1;
             color: white;
             border: none;
             padding: 12px 30px;
             border-radius: 50px;
-            font-size: 15px;
             font-weight: 600;
-            transition: 0.5s; 
-            pointer-events: none; 
-            opacity: 0.7;
+            cursor: pointer;
             width: 100%;
-            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.4);
         }
 
-        /* Đổi màu nút Copy khi ĐÃ sẵn sàng (màu hồng đậm) */
+        button:hover {
+            background: #ff9aa2;
+            transform: translateY(-2px);
+        }
+
+        .result-box {
+            margin-top: 25px;
+            padding: 20px;
+            background: #fffafa;
+            border: 2px dashed #ffc0cb;
+            border-radius: 15px;
+            display: none;
+        }
+
+        .result-header {
+            color: #28a745;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .link-display {
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #eee;
+            font-size: 12px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            color: #666;
+        }
+
+        .copy-btn {
+            background: #ccc; /* Mặc định màu xám khi chưa có link */
+            font-size: 14px;
+            padding: 8px 20px;
+            transition: 0.5s; /* Hiệu ứng đổi màu mượt mà */
+            pointer-events: none; /* Chưa có link thì không cho bấm */
+            opacity: 0.7;
+        }
+
         .copy-btn.ready {
-            background: #db7093; /* Màu hồng đậm giống nút chính */
+            background: #ffb6c1; /* Đổi sang màu hồng khi xong */
             pointer-events: auto;
             opacity: 1;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(219, 112, 147, 0.3);
-        }
-
-        .copy-btn.ready:hover {
-            background: #c71585;
-            box-shadow: 0 6px 15px rgba(219, 112, 147, 0.4);
         }
 
         .instructions {
             text-align: left;
             font-size: 13px;
             color: #888;
-            line-height: 1.7;
-            margin-top: 20px;
-            border-top: 2px solid #eee;
-            padding-top: 15px;
+            line-height: 1.6;
+            margin-top: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
         }
     </style>
 </head>
@@ -197,21 +159,21 @@
     
     <div class="input-group">
         <label>Link sản phẩm Shopee</label>
-        <input type="text" id="shopeeInput" placeholder="Dán link s.shopee.vn/... vào đây nha Dâu 🐰">
+        <input type="text" id="shopeeInput" placeholder="Dán link s.shopee.vn/... vào đây nha">
     </div>
 
-    <button class="main-btn" onclick="convertLink()">✨ Tạo Link Ngay</button>
+    <button onclick="convertLink()">✨ Tạo Link Ngay</button>
 
     <div id="resultBox" class="result-box">
-        <div class="result-header" id="statusHeader">⏳ Đang biến hóa...</div>
+        <div class="result-header">✅ Tạo link thành công!</div>
         <div class="link-display" id="outputLink"></div>
-        <button id="copyBtn" class="copy-btn" onclick="copyToClipboard()">📋 Sao chép link</button>
+        <button class="copy-btn" onclick="copyToClipboard()">📋 Sao chép link</button>
 
         <div class="instructions">
-            <strong>🪄 Hướng dẫn từ Melody:</strong><br>
-            1. Nhấn sao chép link ở trên (Nút sẽ hồng khi xong).<br>
-            2. Dán link vào bài đăng Facebook của Dâu.<br>
-            3. Link này đã gắn ID: <strong>17384580288</strong> rồi nha!
+            <strong>🪄 Hướng dẫn:</strong><br>
+            1. Nhấn sao chép link ở phía trên<br>
+            2. Dán link vào phần bình luận của bài viết bất kì trên Facebook<br>
+            3. Nhấn vào link đã dán đó và nhận mã Facebook để mua hàng nhé! ✨
         </div>
     </div>
 </div>
@@ -221,11 +183,11 @@
         const input = document.getElementById('shopeeInput').value.trim();
         const resultBox = document.getElementById('resultBox');
         const outputLink = document.getElementById('outputLink');
-        const copyBtn = document.getElementById('copyBtn');
-        const header = document.getElementById('statusHeader');
+        const copyBtn = document.querySelector('.copy-btn');
+        const header = document.querySelector('.result-header');
 
         if (!input) {
-            alert('Dâu ơi, dán link vào đã nè! 🐰');
+            alert('Dâu ơi, dán link vào đã nè!');
             return;
         }
 
@@ -235,30 +197,28 @@
         // Reset trạng thái nút mỗi lần bấm tạo mới
         copyBtn.classList.remove('ready');
         resultBox.style.display = 'block';
-        outputLink.innerText = "Melody đang 'úm ba la' link cho Dâu... ✨🐰";
-        header.innerHTML = "⏳ Đang biến hóa...";
+        outputLink.innerText = "Đang chuyển đổi bạn đợi xíu nha... ✨";
+        header.innerHTML = "⏳ Đang xử lý...";
         header.style.color = "#d63384";
 
         try {
-            // Thiết lập thời gian chờ (timeout) cho việc soi link dài
+            // Thiết lập thời gian chờ (timeout) 3 giây cho việc soi link dài
+            // Nếu sau 3 giây không soi được link dài, mình dùng link rút gọn luôn cho nhanh
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 4000); // Đợi tối đa 4 giây
+            const timeoutId = setTimeout(() => controller.abort(), 3500);
 
             let finalOriginLink = input;
 
             if (input.includes("s.shopee.vn") && !input.includes("an_redir")) {
                 try {
-                    // Sử dụng API trung gian để bóc tách link
                     const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`, { signal: controller.signal });
                     const data = await response.json();
-                    
-                    // Soi tìm link shopee.vn
                     const match = data.contents.match(/https:\/\/shopee\.vn\/[^\s"']+/);
                     if (match) {
-                        finalOriginLink = match[0].split('?')[0]; // Lấy link sạch
+                        finalOriginLink = match[0].split('?')[0]; 
                     }
                 } catch (e) {
-                    console.log("Melody thấy soi lâu quá, dùng link rút gọn của Dâu cho nhanh nha!");
+                    console.log("Soi lâu quá, Mochi dùng link gốc Dâu đưa luôn cho nhanh nha!");
                 }
             }
 
@@ -267,16 +227,16 @@
 
             // Hiển thị kết quả
             outputLink.innerText = finalLink;
-            header.innerHTML = "✅ Xong rồi nè Dâu ơi!";
-            header.style.color = "#1e7e34"; // Xanh lá đậm cho nổi chữ trắng
+            header.innerHTML = "✅ Đã tạo link xong!";
+            header.style.color = "#28a745";
+            
+            // Kích hoạt nút Copy sang màu hồng
             copyBtn.classList.add('ready');
 
         } catch (error) {
-            // Phòng hờ nếu mạng lỗi
             const encodedOrigin = encodeURIComponent(input);
             outputLink.innerText = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
             copyBtn.classList.add('ready');
-            header.innerHTML = "✅ Xong rồi nè Dâu ơi!";
         }
     }
 
@@ -289,8 +249,7 @@
         document.execCommand('copy');
         document.body.removeChild(el);
         
-        // Icon thông báo cũng đổi thành Melody nha
-        alert('Melody đã copy link thành công cho Dâu rồi! 🐰🎀');
+        alert('Đã copy link thành công! 🎀');
     }
 </script>
 
