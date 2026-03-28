@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tạo Link Shopee Affiliate</title>
+    <title>Tạo Link Shopee Affiliate x Facebook</title>
     <style>
-        body { font-family: -apple-system, system-ui, sans-serif; background: #f4f4f7; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
-        .card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); width: 100%; max-width: 400px; }
-        h2 { color: #ee4d2d; text-align: center; margin-bottom: 25px; }
-        input { width: 100%; padding: 15px; border: 2px solid #eee; border-radius: 12px; box-sizing: border-box; font-size: 16px; margin-bottom: 20px; }
-        input:focus { border-color: #ee4d2d; outline: none; }
-        button { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        body { font-family: -apple-system, system-ui, sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; }
+        .card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { color: #ee4d2d; text-align: center; margin-top: 0; font-size: 22px; }
+        p { font-size: 14px; color: #65676b; text-align: center; margin-bottom: 20px; }
+        input { width: 100%; padding: 14px; border: 1px solid #dddfe2; border-radius: 8px; box-sizing: border-box; font-size: 16px; margin-bottom: 15px; }
+        button { width: 100%; padding: 14px; border: none; border-radius: 8px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.2s; }
         .btn-gen { background: #ee4d2d; color: white; }
-        .btn-copy { background: #5a4bcf; color: white; margin-top: 10px; }
-        #result-area { display: none; margin-top: 25px; border-top: 1px solid #eee; padding-top: 20px; }
-        .loading { color: #ee4d2d; font-size: 14px; text-align: center; margin-bottom: 10px; display: none; }
+        .btn-gen:disabled { background: #f5f5f5; color: #bec3c9; cursor: not-allowed; }
+        .btn-copy { background: #e7f3ff; color: #1877f2; margin-top: 10px; }
+        #result-area { display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #ebedf0; }
+        .status { font-size: 13px; text-align: center; margin-bottom: 10px; color: #ee4d2d; display: none; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>🛍️ Shopee Affiliate</h2>
-        <input type="text" id="shopeeLink" placeholder="Dán link Shopee vào đây...">
-        <div id="loading" class="loading">⚙️ Đang bẻ khóa link rút gọn...</div>
-        <button class="btn-gen" id="genBtn" onclick="processLink()">Tạo Link Ngay</button>
+        <h2>Tạo Link Shopee</h2>
+        <p>Nhập link sản phẩm Shopee để tạo link tự động nhận mã giảm giá Facebook</p>
+        
+        <input type="text" id="shopeeLink" placeholder="Dán link sản phẩm vào đây...">
+        <div id="loading" class="status">正在 xử lý link gốc...</div>
+        <button class="btn-gen" id="genBtn" onclick="processLink()">Tạo Link</button>
 
         <div id="result-area">
-            <p style="font-weight: bold; color: #2ecc71; margin-top: 0;">✅ Đã tạo xong!</p>
-            <input type="text" id="finalLink" readonly style="background: #f9f9f9;">
-            <button class="btn-copy" onclick="copyLink()">📋 Copy Link</button>
+            <div style="font-weight: bold; color: #28a745; margin-bottom: 10px; font-size: 15px;">✅ Đã tạo link thành công!</div>
+            <input type="text" id="finalLink" readonly style="background: #f0f2f5; color: #1c1e21;">
+            <button class="btn-copy" onclick="copyLink()">Sao chép đường dẫn</button>
         </div>
     </div>
 
@@ -40,7 +43,7 @@
             const finalInput = document.getElementById('finalLink');
 
             if (!input.includes('shopee.vn')) {
-                alert('Dâu dán nhầm link rồi, kiểm tra lại nha!');
+                alert('Vui lòng nhập đúng link Shopee!');
                 return;
             }
 
@@ -48,33 +51,28 @@
             loading.style.display = 'block';
             resultArea.style.display = 'none';
 
-            let productLink = input;
+            let finalUrl = input;
 
-            // Xử lý link rút gọn s.shopee.vn
+            // Xử lý để lấy link gốc (Cực kỳ quan trọng cho chương trình Facebook)
             if (input.includes('s.shopee.vn')) {
                 try {
-                    // Dùng dịch vụ lấy nội dung trang để tìm link gốc
                     const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
                     const data = await response.json();
-                    
-                    // Tìm cấu trúc shopee.vn/product/ hoặc shopee.vn/tên-sản- phẩm-i.
-                    const match = data.contents.match(/https:\/\/shopee\.vn\/[a-zA-Z0-9.\-_]+\-i\.[0-9]+\.[0-9]+/);
+                    // Tìm định dạng link gốc có chứa ID sản phẩm
+                    const match = data.contents.match(/https:\/\/shopee\.vn\/product\/[0-9]+\/[0-9]+/);
                     if (match) {
-                        productLink = match[0];
+                        finalUrl = match[0];
                     }
                 } catch (e) {
-                    console.error("Lỗi giải mã, dùng link gốc.");
+                    console.error("Lỗi lấy link gốc, dùng link tạm.");
                 }
             }
 
-            // Gắn Affiliate ID của Dâu
             const affId = "17384580288";
-            const baseUrl = "https://s.shopee.vn/an_redir?origin_link=";
+            const cleanUrl = finalUrl.split('?')[0]; // Bỏ các thông số rác để link sạch nhất
             
-            // Làm sạch link (bỏ các ký tự rác sau dấu ?)
-            const cleanUrl = productLink.split('?')[0];
-            
-            finalInput.value = baseUrl + encodeURIComponent(cleanUrl) + "&affiliate_id=" + affId + "&sub_id=dau-tool";
+            // Cấu trúc link chuẩn CPAS Shopee x Facebook
+            finalInput.value = `https://s.shopee.vn/an_redir?origin_link=${encodeURIComponent(cleanUrl)}&affiliate_id=${affId}&sub_id=fb-cpas`;
             
             loading.style.display = 'none';
             genBtn.disabled = false;
@@ -86,7 +84,7 @@
             copyText.select();
             copyText.setSelectionRange(0, 99999);
             document.execCommand("copy");
-            alert("Đã copy link tiếp thị!");
+            alert("Đã sao chép link tiếp thị!");
         }
     </script>
 </body>
