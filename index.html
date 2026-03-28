@@ -169,44 +169,51 @@
 </div>
 
 <script>
- function convertLink() {
-        const input = document.getElementById('shopeeInput').value.trim();
+ async function convertLink() {
+        let input = document.getElementById('shopeeInput').value.trim();
         const resultBox = document.getElementById('resultBox');
         const outputLink = document.getElementById('outputLink');
 
         if (!input) {
-            alert('Bạn ơi, dán link vào đã nè!');
+            alert('Dâu ơi, dán link vào đã nè!');
             return;
         }
 
-        // 1. Kiểm tra xem link có phải định dạng an_redir không
-        // Nếu là link s.shopee.vn bình thường, mình cần cấu trúc lại nó
+        const newAffId = "17384580288"; 
+        const newSubId = "addlivetag-lanvely---";
         
-        const newAffId = "17384580288"; // ID của Dâu
-        const newSubId = "addlivetag-lanvely---"; // Sub ID theo ảnh của Dâu
-        
-        let finalLink = "";
-
-        if (input.includes("an_redir")) {
-            // Nếu Dâu dán link đã chuyển đổi sẵn, Mochi sẽ thay mã AFF
-            finalLink = input.replace(/affiliate_id=\d+/, `affiliate_id=${newAffId}`);
-            finalLink = finalLink.replace(/sub_id=[^&]*/, `sub_id=${newSubId}`);
-        } else {
-            // Nếu là link rút gọn (s.shopee.vn/xxx), ta sẽ đóng gói nó vào origin_link
-            // Chuyển link gốc thành định dạng mã hóa (URL Encode)
-            const encodedOrigin = encodeURIComponent(input);
-            finalLink = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
-        }
-
-        outputLink.innerText = finalLink;
+        // Hiện thông báo đang xử lý cho "pro" nè
+        outputLink.innerText = "Mochi đang bóc tách link cho Dâu chờ xíu nha... 🎀";
         resultBox.style.display = 'block';
-    }
 
-    function copyToClipboard() {
-        const text = document.getElementById('outputLink').innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            alert('Đã copy link rồi nè! ✨');
-        });
+        try {
+            let finalOriginLink = input;
+
+            // Nếu là link rút gọn s.shopee.vn, mình đi "giải mã" nó
+            if (input.includes("s.shopee.vn") && !input.includes("an_redir")) {
+                // Sử dụng API redirect-checker để lấy link đích cuối cùng
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
+                const data = await response.json();
+                
+                // Mochi soi tìm link shopee.vn trong nội dung trả về
+                const match = data.contents.match(/https:\/\/shopee\.vn\/[^\s"']+/);
+                if (match) {
+                    finalOriginLink = match[0].split('?')[0]; // Lấy link sạch, bỏ các tham số rác đằng sau
+                }
+            }
+
+            // Đóng gói lại thành link Affiliate dài chuẩn chỉnh
+            const encodedOrigin = encodeURIComponent(finalOriginLink);
+            const finalLink = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
+
+            outputLink.innerText = finalLink;
+            
+        } catch (error) {
+            // Nếu lỗi (do mạng hoặc API chặn), mình dùng link rút gọn như cũ làm phương án dự phòng
+            const encodedOrigin = encodeURIComponent(input);
+            outputLink.innerText = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
+            console.log("Lỗi xíu nhưng Mochi vẫn tạo link tạm cho Dâu nè");
+        }
     }
 </script>
 
