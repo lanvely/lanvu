@@ -31,7 +31,7 @@
         <input type="text" id="shopeeLink" placeholder="Ví dụ: https://s.shopee.vn/... hoặc https://shopee.vn/... ">
         <button class="btn-generate" id="generateBtn" onclick="generateLink()">
             <span class="loader" id="loader"></span>
-            <span id="btnText">🔥 Tạo Link Ngay</span>
+            <span id="btnText">🔥 Tạo Link Tiếp Thị</span>
         </button>
 
         <div id="result-area">
@@ -107,7 +107,7 @@
             // Khôi phục trạng thái nút bấm và hiển thị kết quả
             generateBtn.disabled = false;
             loader.style.display = 'none';
-            btnText.innerText = '🔥 Tạo Link Ngay';
+            btnText.innerText = '🔥 Tạo Link Tiếp Thị';
             resultArea.style.display = 'block';
             
             // Tự động cuộn xuống phần kết quả trên điện thoại
@@ -126,12 +126,12 @@
             try {
                 // Thử dùng API copy hiện đại
                 navigator.clipboard.writeText(copyText.value).then(() => {
-                    alert("Đã copy link!");
+                    alert("Đã copy link tiếp thị!");
                 });
             } catch (err) {
                 // Cách fallback nếu API trên không hoạt động trên trình duyệt cũ
                 document.execCommand("copy");
-                alert("Đã copy link!");
+                alert("Đã copy link tiếp thị!");
             }
         }
     </script>
