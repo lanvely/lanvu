@@ -169,51 +169,69 @@
 </div>
 
 <script>
- async function convertLink() {
-        let input = document.getElementById('shopeeInput').value.trim();
+    async function convertLink() {
+        const input = document.getElementById('shopeeInput').value.trim();
         const resultBox = document.getElementById('resultBox');
         const outputLink = document.getElementById('outputLink');
 
         if (!input) {
-            alert('Dâu ơi, dán link vào đã nè!');
+            alert('Bạn ơi, dán link vào đã nè!');
             return;
         }
 
         const newAffId = "17384580288"; 
         const newSubId = "addlivetag-lanvely---";
         
-        // Hiện thông báo đang xử lý cho "pro" nè
-        outputLink.innerText = "Mochi đang bóc tách link cho Dâu chờ xíu nha... 🎀";
+        // Bước 1: Hiện khung nhưng báo đang xử lý, chưa báo "Thành công" vội
+        outputLink.innerText = "Đang chuyển đổi link cho bạn chờ xíu nha... ✨";
         resultBox.style.display = 'block';
+        document.querySelector('.result-header').innerHTML = "⏳ Đang xử lý...";
+        document.querySelector('.result-header').style.color = "#d63384";
 
         try {
             let finalOriginLink = input;
 
-            // Nếu là link rút gọn s.shopee.vn, mình đi "giải mã" nó
+            // Bước 2: Đi soi link thật
             if (input.includes("s.shopee.vn") && !input.includes("an_redir")) {
-                // Sử dụng API redirect-checker để lấy link đích cuối cùng
                 const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(input)}`);
                 const data = await response.json();
                 
-                // Mochi soi tìm link shopee.vn trong nội dung trả về
+                // Soi link shopee.vn
                 const match = data.contents.match(/https:\/\/shopee\.vn\/[^\s"']+/);
                 if (match) {
-                    finalOriginLink = match[0].split('?')[0]; // Lấy link sạch, bỏ các tham số rác đằng sau
+                    finalOriginLink = match[0].split('?')[0]; 
                 }
             }
 
-            // Đóng gói lại thành link Affiliate dài chuẩn chỉnh
+            // Bước 3: Đóng gói link
             const encodedOrigin = encodeURIComponent(finalOriginLink);
             const finalLink = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
 
+            // Bước 4: Hoàn tất mới báo thành công
             outputLink.innerText = finalLink;
+            document.querySelector('.result-header').innerHTML = "✅ Tạo link thành công!";
+            document.querySelector('.result-header').style.color = "#28a745";
             
         } catch (error) {
-            // Nếu lỗi (do mạng hoặc API chặn), mình dùng link rút gọn như cũ làm phương án dự phòng
+            // Phòng hờ nếu mạng lỗi
             const encodedOrigin = encodeURIComponent(input);
             outputLink.innerText = `https://s.shopee.vn/an_redir?origin_link=${encodedOrigin}&share_channel_code=4&affiliate_id=${newAffId}&sub_id=${newSubId}`;
-            console.log("Lỗi xíu nhưng Mochi vẫn tạo link tạm cho Dâu nè");
+            document.querySelector('.result-header').innerHTML = "✅ Tạo link xong (Dự phòng)!";
         }
+    }
+
+    function copyToClipboard() {
+        const text = document.getElementById('outputLink').innerText;
+        
+        // Cách copy chuẩn hơn cho cả điện thoại và máy tính
+        const el = document.createElement('textarea');
+        el.value = text;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        
+        alert('Đã copy link rồi nè! ✨');
     }
 </script>
 
